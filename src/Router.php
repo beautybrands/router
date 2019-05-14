@@ -7,6 +7,13 @@ use JMS\Serializer\SerializationContext;
 class Router extends \Dice\Dice
 {
 
+    private $logger;
+
+    public function __construct(\Monolog\Logger $logger = null) {
+        $this->logger = $logger;
+    }
+    
+
     /**
      * Route a particular request to a callback
      *
@@ -44,6 +51,10 @@ class Router extends \Dice\Dice
                     static::respond($response);
                 }
             } catch (\Exception $ex) {
+                if ($this->logger) {
+                    $this->logger->emergency($ex->getMessage());
+                }
+
                 static::respond($ex->getMessage(), $ex->getCode());
             }
         }
