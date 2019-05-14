@@ -52,7 +52,10 @@ class Router extends \Dice\Dice
                 }
             } catch (\Exception $ex) {
                 if ($this->logger) {
-                    $this->logger->emergency($ex->getMessage());
+                    $this->logger->emergency($ex->getMessage(), [
+                        'info' => 'router_internal',
+                        'trace' => $ex->getTraceAsString(),
+                    ]);
                 }
 
                 static::respond($ex->getMessage(), $ex->getCode());
