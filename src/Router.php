@@ -50,7 +50,9 @@ class Router extends \Dice\Dice
                 if ($response !== NULL) {
                     static::respond($response);
                 }
-            } catch (\Exception $ex) {
+            } catch (\Objectiveweb\ResponseException $ex) {
+                static::respond($ex->getMessage(), $ex->getCode());
+            } catch (\Throwable $ex) {
                 if ($this->logger) {
                     $this->logger->emergency($ex->getMessage(), [
                         'info' => 'router_internal',
