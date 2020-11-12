@@ -60,7 +60,12 @@ class Router extends \Dice\Dice
                     ]);
                 }
 
-                static::respond($ex->getMessage(), $ex->getCode());
+                $code = $ex->getCode();
+                if ($code < 400 || $code > 599) {
+                    $code = 500;
+                }
+
+                static::respond($ex->getMessage(), $code);
             }
         }
     }

@@ -8,7 +8,7 @@ Add the dependency to `composer.json`, then `composer install`
 
     {
         "require": {
-            "objectiveweb/router": "~2.0"
+            "beautybrands/router": "~2.0"
         }
     }
 
